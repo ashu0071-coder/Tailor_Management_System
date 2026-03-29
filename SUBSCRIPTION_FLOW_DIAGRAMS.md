@@ -1,0 +1,472 @@
+# 📊 Subscription System Flow Diagrams
+
+
+## 1. User Subscription Lifecycle
+
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     NEW SHOP REGISTRATION                        │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+                    ┌────────────────┐
+                    │  Trial Period  │
+                    │   (14 days)    │
+                    │  Full Access   │
+                    └────────┬───────┘
+                             │
+                ┌────────────┴────────────┐
+                │                         │
+                ▼                         ▼
+         ┌──────────────┐        ┌──────────────┐
+         │ Subscribe    │        │ Trial Ends   │
+         │ to Plan      │        │ No Payment   │
+         └──────┬───────┘        └──────┬───────┘
+                │                       │
+                ▼                       ▼
+         ┌──────────────┐        ┌──────────────┐
+         │   ACTIVE     │        │   EXPIRED    │
+         │ Subscription │        │  No Access   │
+         └──────┬───────┘        └──────────────┘
+                │
+    ┌───────────┴───────────┐
+    │                       │
+    ▼                       ▼
+┌─────────────┐     ┌──────────────┐
+│ One-Time    │     │   Monthly    │
+│ Purchase    │     │ Subscription │
+│             │     │              │
+│ Lifetime    │     │ Auto-Renew   │
+│ Access      │     │ Every Month  │
+└─────────────┘     └──────┬───────┘
+                           │
+               ┌───────────┴───────────┐
+               │                       │
+               ▼                       ▼
+        ┌──────────────┐      ┌──────────────┐
+        │ Payment OK   │      │Payment Failed│
+        │ Continue     │      │ INACTIVE     │
+        └──────────────┘      └──────────────┘
+```
+
+
+## 2. Admin Subscription Management Flow
+
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    ADMIN DASHBOARD                           │
+│                                                              │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐           │
+│  │   Total    │  │   Active   │  │  Monthly   │           │
+│  │   Shops    │  │Subscriptions│  │  Revenue   │           │
+│  └────────────┘  └────────────┘  └────────────┘           │
+│                                                              │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐           │
+│  │  Pending   │  │  Inactive  │  │   Trial    │           │
+│  │  Renewals  │  │   Shops    │  │   Users    │           │
+│  └────────────┘  └────────────┘  └────────────┘           │
+└──────────────────────────┬───────────────────────────────────┘
+                           │
+           ┌───────────────┼───────────────┐
+           │               │               │
+           ▼               ▼               ▼
+    ┌──────────┐   ┌──────────┐   ┌──────────┐
+    │  View    │   │  Manage  │   │  View    │
+    │  Shops   │   │  Plans   │   │Payments  │
+    └────┬─────┘   └────┬─────┘   └────┬─────┘
+         │              │              │
+         ▼              ▼              ▼
+    ┌──────────────────────────────────────┐
+    │        ADMIN ACTIONS                 │
+    │                                      │
+    │  • Activate/Deactivate Shop         │
+    │  • Assign Subscription Plan         │
+    │  • View Payment History             │
+    │  • Manual Payment Recording         │
+    │  • Extend Trial Period              │
+    │  • Override Status                  │
+    └──────────────────────────────────────┘
+```
+
+
+## 3. Notification & Renewal Flow
+
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│              DAILY CRON JOB (9:00 AM UTC)                    │
+└────────────────────────┬─────────────────────────────────────┘
+                         │
+         ┌───────────────┼───────────────┐
+         │               │               │
+         ▼               ▼               ▼
+  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+  │Check Trials │ │Check Monthly│ │Check Overdue│
+  │  Ending     │ │  Renewals   │ │Subscriptions│
+  └──────┬──────┘ └──────┬──────┘ └──────┬──────┘
+         │               │               │
+         ▼               ▼               ▼
+  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+  │Trial ending │ │Billing in   │ │Payment past │
+  │  < 3 days   │ │  3 days     │ │  due date   │
+  └──────┬──────┘ └──────┬──────┘ └──────┬──────┘
+         │               │               │
+         ▼               ▼               ▼
+  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+  │   Create    │ │   Create    │ │   Mark as   │
+  │Notification │ │Notification │ │   EXPIRED   │
+  └──────┬──────┘ └──────┬──────┘ └──────┬──────┘
+         │               │               │
+         └───────────────┼───────────────┘
+                         │
+                         ▼
+                  ┌─────────────┐
+                  │Send Email/  │
+                  │Notification │
+                  └──────┬──────┘
+                         │
+                         ▼
+                  ┌─────────────┐
+                  │   Mark as   │
+                  │    SENT     │
+                  └─────────────┘
+```
+
+
+## 4. Payment Processing Flow
+
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                   USER SELECTS PLAN                          │
+└────────────────────────┬─────────────────────────────────────┘
+                         │
+         ┌───────────────┼───────────────┐
+         │                               │
+         ▼                               ▼
+  ┌─────────────┐                 ┌─────────────┐
+  │  One-Time   │                 │   Monthly   │
+  │  $299.99    │                 │   $29.99    │
+  └──────┬──────┘                 └──────┬──────┘
+         │                               │
+         └───────────────┬───────────────┘
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │  Payment Gateway    │
+              │  (Stripe/PayPal)    │
+              └──────────┬──────────┘
+                         │
+         ┌───────────────┼───────────────┐
+         │                               │
+         ▼                               ▼
+  ┌─────────────┐                 ┌─────────────┐
+  │  Payment    │                 │  Payment    │
+  │  SUCCESS    │                 │   FAILED    │
+  └──────┬──────┘                 └──────┬──────┘
+         │                               │
+         ▼                               ▼
+  ┌─────────────────────┐         ┌─────────────┐
+  │Update User Profile: │         │   Show      │
+  │• Set plan_id        │         │   Error     │
+  │• Mark active        │         │  Message    │
+  │• Set dates          │         └─────────────┘
+  └──────┬──────────────┘
+         │
+         ▼
+  ┌─────────────────────┐
+  │Create Payment Record│
+  │• Amount             │
+  │• Transaction ID     │
+  │• Billing period     │
+  └──────┬──────────────┘
+         │
+         ▼
+  ┌─────────────────────┐
+  │ Grant Full Access   │
+  └─────────────────────┘
+```
+
+
+## 5. Access Control Flow
+
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│              USER ATTEMPTS TO ACCESS APP                     │
+└────────────────────────┬─────────────────────────────────────┘
+                         │
+                         ▼
+                  ┌─────────────┐
+                  │ Is Logged   │    NO
+                  │    In?      ├──────────► LOGIN PAGE
+                  └──────┬──────┘
+                         │ YES
+                         ▼
+                  ┌─────────────┐
+                  │  Is Admin?  │    YES
+                  └──────┬──────┴──────────► FULL ACCESS
+                         │ NO
+                         ▼
+              ┌─────────────────────┐
+              │Check Subscription:  │
+              │• Status             │
+              │• is_active flag     │
+              │• Trial end date     │
+              │• Billing date       │
+              └──────┬──────────────┘
+                     │
+     ┌───────────────┼───────────────┐
+     │               │               │
+     ▼               ▼               ▼
+┌─────────┐    ┌─────────┐    ┌─────────┐
+│ ACTIVE  │    │  TRIAL  │    │INACTIVE │
+│  Plan   │    │Valid End│    │EXPIRED  │
+└────┬────┘    └────┬────┘    └────┬────┘
+     │              │              │
+     ▼              ▼              ▼
+┌─────────┐    ┌─────────┐    ┌─────────┐
+│  FULL   │    │  FULL   │    │ BLOCKED │
+│ ACCESS  │    │ ACCESS  │    │ SCREEN  │
+└─────────┘    └─────────┘    └────┬────┘
+                                    │
+                              ┌─────▼─────┐
+                              │  Options: │
+                              │• Renew    │
+                              │• Contact  │
+                              │  Admin    │
+                              └───────────┘
+```
+
+
+## 6. Database Relationships
+
+
+```
+┌────────────────────────┐
+│   user_profiles        │
+│────────────────────────│
+│ id (PK)                │
+│ email                  │
+│ role                   │◄───────┐
+│ subscription_plan_id   │        │
+│ subscription_status    │        │
+│ is_subscription_active │        │
+│ next_billing_date      │        │
+│ trial_end_date         │        │
+└────────┬───────────────┘        │
+         │                        │
+         │ 1:N                    │
+         │                        │
+         ▼                        │
+┌────────────────────────┐        │
+│  payment_history       │        │
+│────────────────────────│        │
+│ id (PK)                │        │
+│ user_id (FK)           │        │
+│ subscription_plan_id   │        │
+│ amount                 │        │
+│ payment_status         │        │
+│ payment_date           │        │
+│ billing_period_start   │        │
+│ billing_period_end     │        │
+└────────────────────────┘        │
+                                  │
+         ┌────────────────────────┘
+         │
+         ▼
+┌────────────────────────┐
+│ subscription_plans     │
+│────────────────────────│
+│ id (PK)                │
+│ name                   │
+│ plan_type              │
+│ price                  │
+│ features (JSON)        │
+│ is_active              │
+└────────────────────────┘
+
+
+         ┌────────────────────────┐
+         │subscription_           │
+         │   notifications        │
+         │────────────────────────│
+         │ id (PK)                │
+         │ user_id (FK)           │
+         │ notification_type      │
+         │ scheduled_for          │
+         │ sent_at                │
+         │ status                 │
+         │ message                │
+         └────────────────────────┘
+```
+
+
+## 7. Monthly Billing Cycle
+
+
+```
+Month 1                    Month 2                    Month 3
+  │                          │                          │
+  ▼                          ▼                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│  Day 1: Subscription starts                                │
+│  ├── Create payment record                                 │
+│  └── Set next_billing_date = Day 1 of Month 2             │
+│                                                             │
+│  Day 27: Notification scheduled                            │
+│  └── Create renewal reminder                               │
+│                                                             │
+│  Day 28: First reminder sent                               │
+│  └── "3 days until renewal"                                │
+│                                                             │
+│  Day 29: Second reminder                                   │
+│  └── "2 days until renewal"                                │
+│                                                             │
+│  Day 30: Final reminder                                    │
+│  └── "Payment due tomorrow"                                │
+│                                                             │
+│  Month 2, Day 1: Billing date                              │
+│  ├── Process payment                                       │
+│  ├── If success:                                           │
+│  │   ├── Create payment record                             │
+│  │   └── Set next_billing_date = Day 1 of Month 3         │
+│  │                                                          │
+│  └── If failed:                                            │
+│      ├── Mark as expired                                   │
+│      ├── Set is_active = false                             │
+│      └── Send failure notification                         │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+
+## 8. Admin Workflow
+
+
+```
+Admin Logs In
+      │
+      ▼
+┌──────────────┐
+│  Dashboard   │
+│   Overview   │
+└──────┬───────┘
+       │
+       ▼
+┌────────────────────────────┐
+│ View Statistics            │
+│ • Total shops: 150         │
+│ • Active: 120              │
+│ • Revenue: $3,598/mo       │
+│ • Pending renewals: 8      │
+└──────┬─────────────────────┘
+       │
+       ▼
+┌────────────────────────────┐
+│ Subscriptions Table        │
+│ ┌──────────────────┐       │
+│ │ Shop A │ Active  │       │
+│ │ Shop B │ Overdue │ ◄──── Admin notices
+│ │ Shop C │ Trial   │       │
+│ └──────────────────┘       │
+└──────┬─────────────────────┘
+       │
+       ▼
+┌────────────────────────────┐
+│ Admin Actions              │
+│                            │
+│ For Shop B (Overdue):      │
+│ 1. Contact shop owner      │
+│ 2. Verify payment          │
+│ 3. Manual activation       │
+│ 4. Record payment          │
+│                            │
+└────────────────────────────┘
+       │
+       ▼
+┌────────────────────────────┐
+│ Shop B now Active          │
+│ Payment recorded           │
+│ Access restored            │
+└────────────────────────────┘
+```
+
+
+## 9. System Integration Points
+
+
+```
+┌──────────────────────────────────────────────────────────┐
+│                   Frontend (React)                       │
+│                                                          │
+│  • SubscriptionStatus.jsx  (User UI)                    │
+│  • AdminSubscriptions.jsx  (Admin Dashboard)            │
+│  • ProtectedRoute.jsx      (Access Control)             │
+│  • MainLayout.jsx          (Status Display)             │
+└────────────────────┬─────────────────────────────────────┘
+                     │
+                     ▼
+┌──────────────────────────────────────────────────────────┐
+│              Service Layer (JavaScript)                  │
+│                                                          │
+│  • subscriptionService.js                               │
+│    - getCurrentUserSubscription()                       │
+│    - subscribeToPlan()                                  │
+│    - getAllShopSubscriptions()                          │
+│    - toggleShopActive()                                 │
+└────────────────────┬─────────────────────────────────────┘
+                     │
+                     ▼
+┌──────────────────────────────────────────────────────────┐
+│                 Supabase (PostgreSQL)                    │
+│                                                          │
+│  Tables:                                                 │
+│  • subscription_plans                                    │
+│  • user_profiles (+ subscription columns)               │
+│  • payment_history                                       │
+│  • subscription_notifications                            │
+│                                                          │
+│  Functions:                                              │
+│  • is_subscription_active()                             │
+│  • create_renewal_notifications()                       │
+│  • expire_overdue_subscriptions()                       │
+│  • get_subscription_stats()                             │
+└────────────────────┬─────────────────────────────────────┘
+                     │
+                     ▼
+┌──────────────────────────────────────────────────────────┐
+│            Edge Functions (Deno/TypeScript)              │
+│                                                          │
+│  • subscription-alerts                                   │
+│    - Daily cron job                                      │
+│    - Send notifications                                  │
+│    - Expire subscriptions                                │
+│                                                          │
+│  • process-subscription-payment                          │
+│    - Handle payment processing                           │
+│    - Update subscription status                          │
+└────────────────────┬─────────────────────────────────────┘
+                     │
+                     ▼
+┌──────────────────────────────────────────────────────────┐
+│              External Services (To Integrate)            │
+│                                                          │
+│  • Payment Gateway (Stripe/PayPal)                      │
+│  • Email Service (SendGrid/AWS SES)                     │
+│  • SMS Service (Twilio) [Optional]                      │
+└──────────────────────────────────────────────────────────┘
+```
+
+
+---
+
+
+These diagrams illustrate the complete flow of the subscription management system.
+Reference them when setting up or troubleshooting the system.
+
+
+

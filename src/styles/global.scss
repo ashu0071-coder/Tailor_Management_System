@@ -1,0 +1,356 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+
+#root {
+  min-height: 100vh;
+}
+
+
+/* Mobile-first responsive typography */
+html {
+  font-size: 16px;
+}
+
+
+@media (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+
+/* Touch-friendly buttons and links */
+@media (max-width: 600px) {
+  button,
+  a,
+  .MuiButton-root,
+  .MuiIconButton-root {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+/* Mobile DataGrid improvements */
+@media (max-width: 600px) {
+  .MuiDataGrid-root {
+    font-size: 0.75rem !important;
+  }
+ 
+  .MuiDataGrid-columnHeaders {
+    min-height: 44px !important;
+  }
+ 
+  .MuiDataGrid-cell {
+    padding: 6px 8px !important;
+    font-size: 0.75rem !important;
+  }
+ 
+  .MuiDataGrid-row {
+    min-height: 44px !important;
+  }
+ 
+  .MuiDataGrid-columnHeaderTitle {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+  }
+}
+
+
+/* Card styling enhancements */
+.MuiPaper-root:not(.MuiCard-root):not(.MuiDialog-paper) {
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+
+/* Enhanced button styles */
+.MuiButton-contained {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+
+.MuiButton-contained:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 600px) {
+  .MuiContainer-root {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+
+/* Mobile menu improvements */
+@media (max-width: 600px) {
+  .MuiDrawer-paper {
+    width: 280px !important;
+  }
+ 
+  .MuiListItemButton-root {
+    min-height: 52px;
+  }
+ 
+  .MuiListItemIcon-root {
+    min-width: 48px;
+  }
+}
+
+
+/* Better mobile form inputs */
+@media (max-width: 600px) {
+  .MuiTextField-root {
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
+  }
+ 
+  .MuiInputBase-root {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+ 
+  .MuiInputLabel-root {
+    font-size: 16px !important;
+  }
+}
+
+
+/* Mobile card improvements */
+@media (max-width: 600px) {
+  .MuiPaper-root {
+    border-radius: 12px !important;
+  }
+}
+
+
+/* Ensure proper mobile viewport */
+@media (max-width: 600px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+}
+
+
+/* Table container for mobile scrolling */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+@media (max-width: 900px) {
+  .table-container {
+    margin: 0;
+    padding: 0;
+  }
+ 
+  /* Force table to be scrollable on mobile */
+  .MuiDataGrid-root {
+    min-width: 600px !important;
+  }
+}
+
+
+/* Fix table width overflow on mobile */
+@media (max-width: 600px) {
+  .MuiTableContainer-root {
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    /* Prevent background from extending */
+    max-width: 100% !important;
+  }
+ 
+  .MuiTable-root {
+    width: 100% !important;
+  }
+ 
+  /* Smaller pagination font size */
+  .MuiTablePagination-root {
+    font-size: 0.75rem !important;
+  }
+ 
+  .MuiTablePagination-selectLabel,
+  .MuiTablePagination-displayedRows {
+    font-size: 0.7rem !important;
+    margin: 0 !important;
+  }
+ 
+  .MuiTablePagination-select {
+    font-size: 0.75rem !important;
+  }
+ 
+  .MuiTablePagination-actions {
+    margin-left: 8px !important;
+  }
+ 
+  /* Compact pagination toolbar */
+  .MuiTablePagination-toolbar {
+    min-height: 48px !important;
+    padding: 4px 8px !important;
+  }
+ 
+  /* Compact table cells */
+  .MuiTableCell-root {
+    padding: 8px 4px !important;
+  }
+ 
+  .MuiTableCell-head {
+    padding: 8px 4px !important;
+  }
+}
+
+
+/* Dialog form responsiveness */
+@media (max-width: 600px) {
+  .MuiDialog-paper {
+    margin: 0 !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+  }
+ 
+  .MuiDialogContent-root {
+    padding: 16px !important;
+    overflow-x: hidden !important;
+  }
+ 
+  .MuiDialogTitle-root {
+    padding: 16px !important;
+  }
+ 
+  .MuiDialogActions-root {
+    padding: 12px 16px !important;
+  }
+ 
+  /* Prevent grid overflow in dialogs */
+  .MuiGrid-container {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+ 
+  .MuiGrid-item {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+
+/* Chip enhancements */
+.MuiChip-root {
+  font-weight: 500 !important;
+}
+
+
+/* AppBar subtle effect */
+.MuiAppBar-root {
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+
+/* Tailor-themed mobile enhancements */
+@media (max-width: 600px) {
+  /* Add subtle pattern background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 35px,
+        rgba(255, 101, 0, 0.02) 35px,
+        rgba(255, 101, 0, 0.02) 36px
+      );
+    pointer-events: none;
+    z-index: -1;
+  }
+ 
+  /* Tailor-themed accent for cards */
+  .MuiPaper-root:not(.MuiDrawer-paper):not(.MuiDialog-paper) {
+    border-left: none !important;
+  }
+ 
+  /* Button enhancements with tailor theme */
+  .MuiButton-contained {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: 0 2px 4px rgba(255, 101, 0, 0.2) !important;
+  }
+ 
+  /* Chip styling for measurements */
+  .MuiChip-root {
+    border-radius: 6px !important;
+    font-size: 0.7rem !important;
+  }
+ 
+  /* Table header with tailor theme */
+  .MuiTableCell-head {
+    background: linear-gradient(135deg, #ffff 0%, #fff5f0 100%) !important;
+    border-bottom: none !important;
+  }
+ 
+  /* Smooth scrolling for tables */
+  .MuiTableContainer-root {
+    scroll-behavior: smooth;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  }
+}
+
+
+
