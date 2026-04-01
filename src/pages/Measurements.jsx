@@ -245,13 +245,13 @@ const Measurements = () => {
   return (
     <Box sx={{
       minHeight: '100vh',
-      background: '#ffffff',
+      background: '#F8F9FA',
       position: 'relative',
       overflow: 'hidden'
     }}>
      
       {/* Enhanced Floating Scissors */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           top: '10%',
@@ -274,10 +274,10 @@ const Measurements = () => {
         }}
       >
         ✂️
-      </motion.div>
+      </motion.div> */}
      
       {/* Enhanced Floating Thread */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           bottom: '15%',
@@ -301,10 +301,10 @@ const Measurements = () => {
         }}
       >
         🧵
-      </motion.div>
+      </motion.div> */}
      
       {/* Enhanced Floating Needle */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           top: '50%',
@@ -328,7 +328,7 @@ const Measurements = () => {
         }}
       >
         🪡
-      </motion.div>
+      </motion.div> */}
 
 
       {/* Tabs */}

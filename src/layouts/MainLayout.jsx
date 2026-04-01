@@ -351,11 +351,11 @@ const MainLayout = () => {
           transition={{ duration: 0.3 }}
         >
           {/* Show subscription status for non-admin users */}
-          {!isAdmin && (
+          {/* {!isAdmin && (
             <Box sx={{ px: { xs: 2, sm: 0 } }}>
               <SubscriptionStatus />
             </Box>
-          )}
+          )} */}
           <Outlet />
         </motion.div>
       </Box>

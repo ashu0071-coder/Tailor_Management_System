@@ -442,13 +442,13 @@ const Customers = () => {
   return (
     <Box sx={{
       minHeight: '100vh',
-      background: '#ffffff',
+      background: '#F8F9FA',
       position: 'relative',
       overflow: 'hidden'
     }}>
      
       {/* Enhanced Floating Scissors */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           top: '10%',
@@ -471,10 +471,10 @@ const Customers = () => {
         }}
       >
         ✂️
-      </motion.div>
+      </motion.div> */}
      
       {/* Enhanced Floating Thread */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           bottom: '15%',
@@ -498,10 +498,10 @@ const Customers = () => {
         }}
       >
         🧵
-      </motion.div>
+      </motion.div> */}
      
       {/* Enhanced Floating Needle */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           top: '50%',
@@ -525,7 +525,7 @@ const Customers = () => {
         }}
       >
         🪡
-      </motion.div>
+      </motion.div> */}
 
 
     <Container maxWidth="lg" sx={{ py: { xs: 2, sm: 3, md: 4 }, px: { xs: 2.5, sm: 3, md: 4 }, position: 'relative', zIndex: 2 }}>
@@ -554,7 +554,7 @@ const Customers = () => {
               backgroundClip: 'text'
             }}
           >
-            👥 Customers
+            Customers
           </Typography>
           {!isMobile && (
             <motion.div
@@ -929,7 +929,7 @@ const Customers = () => {
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
         }}>
-          {selectedCustomer ? '✏️ Edit Customer' : '➕ Add New Customer'}
+          {selectedCustomer ? 'Edit Customer' : 'Add New Customer'}
           <IconButton
             onClick={handleCloseDialog}
             sx={{

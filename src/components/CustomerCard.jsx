@@ -61,25 +61,10 @@ const CustomerCard = ({ customer, onEdit, onDelete, index }) => {
                   {customer.name}
                 </Typography>
               </Box>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '0.875rem',
-                  fontWeight: 700,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  color: 'transparent',
-                  WebkitTextFillColor: 'transparent',
-                  display: 'inline-block',
-                }}
-              >
-                #{customer.customer_number}
-              </Typography>
             </Box>
            
             <Chip
-              label={customer.payment_status}
+              label={customer.payment_status === "Partial" ? `Paid: ${customer.amount_paid} - Pending: ${customer.remaining_balance}`:customer.payment_status === "Not Paid"?`Not Paid: ${customer.remaining_balance}`:`Paid: ${customer.amount_paid}`}
               size="small"
               sx={{
                 background: statusColors.bg,
@@ -93,44 +78,28 @@ const CustomerCard = ({ customer, onEdit, onDelete, index }) => {
             />
           </Box>
 
-
+{console.log("customer", customer)}
           <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
               <PhoneIcon sx={{ fontSize: '1.1rem', color: '#667eea' }} />
               <Typography
                 variant="body2"
                 sx={{
-                  color: '#475569',
-                  fontSize: '0.9rem',
+                  fontSize: '0.875rem',
+                  fontWeight: 700,
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                  WebkitTextFillColor: 'transparent',
+                  display: 'inline-block',
                 }}
               >
                 {customer.phone}
               </Typography>
             </Box>
            
-            {customer.email && (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
-                <EmailIcon sx={{ fontSize: '1.1rem', color: '#667eea' }} />
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: '#475569',
-                    fontSize: '0.9rem',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {customer.email}
-                </Typography>
-              </Box>
-            )}
-          </Box>
-
-
-          {customer.address && (
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography
+            <Typography
                 variant="body2"
                 sx={{
                   color: '#64748b',
@@ -139,53 +108,13 @@ const CustomerCard = ({ customer, onEdit, onDelete, index }) => {
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                   flex: 1,
+                  textAlign:'right'
                 }}
               >
                 📍 {customer.address}
               </Typography>
-             
-              <Box sx={{ display: 'flex', gap: 1, flexShrink: 0 }}>
-                <motion.div whileTap={{ scale: 0.9 }}>
-                  <IconButton
-                    onClick={() => onEdit(customer)}
-                    sx={{
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                      color: 'white',
-                      minWidth: 44,
-                      minHeight: 44,
-                      '&:hover': {
-                        background: 'linear-gradient(135deg, #764ba2 0%, #667eea 100%)',
-                        transform: 'scale(1.05)',
-                      },
-                    }}
-                  >
-                    <EditIcon sx={{ fontSize: '1.2rem' }} />
-                  </IconButton>
-                </motion.div>
-               
-                <motion.div whileTap={{ scale: 0.9 }}>
-                  <IconButton
-                    onClick={() => onDelete(customer)}
-                    sx={{
-                      background: '#fee2e2',
-                      color: '#dc2626',
-                      minWidth: 44,
-                      minHeight: 44,
-                      '&:hover': {
-                        background: '#fca5a5',
-                        transform: 'scale(1.05)',
-                      },
-                    }}
-                  >
-                    <DeleteIcon sx={{ fontSize: '1.2rem' }} />
-                  </IconButton>
-                </motion.div>
-              </Box>
-            </Box>
-          )}
+          </Box>
 
-
-          {!customer.address && (
             <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
               <motion.div whileTap={{ scale: 0.9 }}>
                 <IconButton
@@ -223,7 +152,6 @@ const CustomerCard = ({ customer, onEdit, onDelete, index }) => {
                 </IconButton>
               </motion.div>
             </Box>
-          )}
         </CardContent>
       </Card>
     </motion.div>
