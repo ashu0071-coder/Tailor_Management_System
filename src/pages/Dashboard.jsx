@@ -83,15 +83,6 @@ const Dashboard = () => {
 
   const statsCards = [
     {
-      title: 'Customers',
-      value: stats.totalCustomers,
-      icon: '👥',
-      bg: '#f8fafc',
-      iconBg: '#e0f2fe',
-      iconColor: '#0284c7',
-      borderColor: '#bae6fd',
-    },
-    {
       title: 'Orders',
       value: stats.totalOrders,
       icon: '📏',
@@ -131,19 +122,35 @@ const Dashboard = () => {
 
 
   return (
-    <Box sx={{
-      height: '100vh',
-      background: '#ffffff',
-      position: 'relative',
-      overflowX: 'hidden',
-      overflowY: 'auto',
-      margin: 0,
-      padding: 0,
-      width: '100%'
-    }}>
+<Box
+  sx={{
+    height: '100vh',
+    backgroundImage: 'url(/stitch_bg.jpg)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    position: 'relative',
+    overflowX: 'hidden',
+    overflowY: 'auto',
+    margin: 0,
+    padding: 0,
+    width: '100%',
+
+    // overlay for softness
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      zIndex: 1,
+    }
+  }}
+>
      
       {/* Top Right Scissors */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           top: '10%',
@@ -166,10 +173,10 @@ const Dashboard = () => {
         }}
       >
         ✂️
-      </motion.div>
+      </motion.div> */}
      
       {/* Bottom Left Thread */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           bottom: '15%',
@@ -193,10 +200,10 @@ const Dashboard = () => {
         }}
       >
         🧵
-      </motion.div>
+      </motion.div> */}
      
       {/* Middle Left Needle */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           top: '50%',
@@ -220,11 +227,11 @@ const Dashboard = () => {
         }}
       >
         🪡
-      </motion.div>
+      </motion.div> */}
 
 
       {/* Bottom Right Scissors */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           bottom: '20%',
@@ -248,11 +255,11 @@ const Dashboard = () => {
         }}
       >
         ✂️
-      </motion.div>
+      </motion.div> */}
 
 
       {/* Top Center Button */}
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'fixed',
           top: '25%',
@@ -276,7 +283,7 @@ const Dashboard = () => {
         }}
       >
         🔘
-      </motion.div>
+      </motion.div> */}
 
 
       <Container maxWidth="lg" sx={{ pt: { xs: 3, sm: 4, md: 5 }, pb: { xs: 3, sm: 4, md: 5 }, px: { xs: 2.5, sm: 3, md: 4 }, position: 'relative', zIndex: 2 }}>
@@ -293,7 +300,7 @@ const Dashboard = () => {
               fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
               fontWeight: 800,
               mb: { xs: 3, sm: 4 },
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: '#ffffff',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -301,7 +308,7 @@ const Dashboard = () => {
               letterSpacing: '-0.5px',
             }}
           >
-            ✂️ Dashboard
+            Dashboard
           </Typography>
         </motion.div>
      
@@ -335,7 +342,7 @@ const Dashboard = () => {
                     elevation={0}
                     sx={{
                       textAlign: 'center',
-                      background: card.bg,
+                      background: 'rgba(255, 255, 255, 0.6)',
                       borderRadius: 3,
                       cursor: 'pointer',
                       position: 'relative',
@@ -343,7 +350,6 @@ const Dashboard = () => {
                       border: `2px solid ${card.borderColor}`,
                       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                       '&::before': {
-                        content: `"${card.icon}"`,
                         position: 'absolute',
                         fontSize: { xs: '120px', sm: '140px', md: '160px' },
                         opacity: 0.1,
@@ -373,7 +379,7 @@ const Dashboard = () => {
                       <Typography
                         variant="body2"
                         sx={{
-                          fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                          fontSize: { xs: '0.9rem', sm: '0.875rem' },
                           color: '#64748b',
                           fontWeight: 600,
                           textTransform: 'uppercase',
