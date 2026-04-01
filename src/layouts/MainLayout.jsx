@@ -60,7 +60,7 @@ const MainLayout = () => {
         { text: 'Subscriptions', icon: <SubscriptionsIcon />, path: '/admin/subscriptions' },
       ]
     : [
-        { text: 'Orders', icon: <ReceiptIcon />, path: '/' },
+        { text: 'Dashboard', icon: <ReceiptIcon />, path: '/' },
         { text: 'Customers', icon: <PeopleIcon />, path: '/customers' },
         { text: 'Measurements', icon: <StraightenIcon />, path: '/measurements' },
       ];
